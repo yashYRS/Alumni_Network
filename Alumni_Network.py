@@ -17,8 +17,6 @@ class Alumni_Network(tk.Tk) :
 		tk.Tk.__init__(self,*args,**kwargs) # for the super class
 		global alumniuser;
 		alumniuser = StringVar()
-		global temp 
-		temp = StringVar()
 		container = tk.Frame(self) 		#Contains all the components of a window
 		container.pack(side = "top",fill = "both",expand = True)
 		container.grid_rowconfigure(0,weight =1)
@@ -174,9 +172,14 @@ class StudentRegister(tk.Frame) :
 			conn.execute("insert into STUDENT values (?,?,?,?,?,?,?)",(rn,bd,n,b,e,l2cv,g))
 			conn.commit()
 			studentregn = rn 
-			c = conn.execute('select bdate,branch,cv_link,email_add,gpa from STUDENT where regn_no = ?',(studentregn,))
-			StudentFinal.insert_into_entries(c)
 			controller.show_frame(StudentFinal)
+			#c = conn.execute('select bdate,branch,cv_link,email_add,gpa from STUDENT where regn_no = ?',(studentregn,))
+			"""for row in c : 
+				bd_var.set(row[0].encode('ascii','ignore'))
+				branch_var.set(row[1].encode('ascii','ignore'))
+				cv_var.set(row[2].encode('ascii','ignore'))
+				email_var.set(row[3].encode('ascii','ignore'))
+				gpa_var.set(str(row[4]))"""
 		except : 
 			self.open_message_box()
 		
@@ -245,26 +248,31 @@ class StudentFinal(tk.Frame) :
 		tk.Frame.__init__(self,parent)
 		
 		Label(self,text = ' Birth Date ').grid(row = 1,sticky = W,padx = 4)
+		global bd_var ; 
 		bd_var = StringVar()
 		bdate = Entry(self,textvariable = bd_var)
 		bdate.grid(row = 1,column = 1, sticky = E,pady = 4)
 
 		Label(self,text = ' Branch ').grid(row = 2,sticky = W,padx = 4)
+		global branch_var; 
 		branch_var = StringVar()
 		branch = Entry(self,textvariable = branch_var)
 		branch.grid(row = 2,column = 1,pady = 4)
 
 		Label(self,text = ' GPA ').grid(row = 2,column = 5,sticky = W,padx = 4)
+		global gpa_var; 
 		gpa_var = StringVar() # needs to be changed, to float while passing
 		gpa = Entry(self,textvariable = gpa_var)
 		gpa.grid(row = 2,column = 6, sticky = E,pady = 4)
 
 		Label(self,text = ' Link to CV ').grid(row = 3,sticky = W,padx = 4)
+		global cv_var
 		cv_var = StringVar()
 		cv = Entry(self,textvariable = cv_var)
 		cv.grid(row = 3,column = 1, sticky = E,pady = 4)
 
 		Label(self,text = ' Email Address ' ).grid(row = 4,sticky = W,padx = 4)
+		global email_var 
 		email_var = StringVar()
 		email = Entry(self,textvariable = email_var)
 		email.grid(row = 4,column = 1, sticky = E,pady = 4)
