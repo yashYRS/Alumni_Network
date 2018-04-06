@@ -4,7 +4,7 @@ import tkMessageBox
 import sqlite3 
 import atexit
 import time
-
+from PIL import Image, ImageTk
 conn = sqlite3.connect('datastored.db')
 studentregn = 0
 def closer() :
@@ -40,6 +40,7 @@ class StartPage(tk.Frame) :
 		alum.grid(row = 7,column = 8)
 		quit = tk.Button(self,text = " EXIT Application ",command = self.quit)
 		quit.grid(row = 10,column = 8)
+		
 
 class StudentPage(tk.Frame) : 
 	def __init__(self,parent,controller):
@@ -314,34 +315,34 @@ class StudentFinal(tk.Frame) :
 			self.insert_in_text(result," Updated Successfully ")
 		except : 
 			print "Failed update"
-	def search_info(self,f,c,p,result) : 
+	def search_info(self,f,co,p,result) : 
 		try : 
 			if len(f) == 0 : 
-				if len(c) == 0 : 
+				if len(co) == 0 : 
 					if len(p) == 0 : 
 					 	self.open_message_box()
 					else : 
 						c = conn.execute('select name,email_add from ALUMNI where position = ?',(p,))
 						self.create_text(c,result)
 				elif len(p) == 0: 
-					c = conn.execute('select name,email_add from ALUMNI where company = ?',(c,))
+					c = conn.execute('select name,email_add from ALUMNI where company = ?',(co,))
 					self.create_text(c,result)
 				else : 
-					c = conn.execute('select name,email_add from ALUMNI where company = ? and position = ?',(c,p)) 
+					c = conn.execute('select name,email_add from ALUMNI where company = ? and position = ?',(co,p))
 					self.create_text(c,result)
-			elif len(c) == 0 : 
+			elif len(co) == 0 : 
 				if len(p) == 0 : 
-					c = conn.execute('select name,email_add from ALUMNI where field = ?',(f))
+					c = conn.execute('select name,email_add from ALUMNI where field = ?',(f,))
 					self.create_text(c,result)
 				else : 
-					c = conn.execute('select name,email_add from ALUMNI where field = ? and position = ?',(c,p))
+					c = conn.execute('select name,email_add from ALUMNI where field = ? and position = ?',(co,p))
 					self.create_text(c,result)
 			else : 
 				if len(p) == 0 : 
-					c = conn.execute('select name,email_add from ALUMNI where field = ? and company = ?',(f,c))
+					c = conn.execute('select name,email_add from ALUMNI where field = ? and company = ?',(f,co))
 					self.create_text(c,result)
 				else : 
-					c = conn.execute('select name,email_add from ALUMNI where field = ? and company = ? and position = ?',(f,c,p)) 
+					c = conn.execute('select name,email_add from ALUMNI where field = ? and company = ? and position = ?',(f,co,p)) 
 					self.create_text(c,result)
 		except : 
 			self.open_message_box()
