@@ -12,6 +12,7 @@ def closer() :
 	conn.close()
 atexit.register(closer)
 #change self.quit to a method which also closes the database. 
+
 class Alumni_Network(tk.Tk) : 
 	def __init__(self,*args,**kwargs):
 		tk.Tk.__init__(self,*args,**kwargs) # for the super class
