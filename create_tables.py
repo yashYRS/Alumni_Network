@@ -1,8 +1,8 @@
-# Program to create necessary tables for the project 
+# Program to create necessary tables for the project
 import sqlite3
 
 conn = sqlite3.connect('datastored.db')
-print "Opened database successfully";
+print("Opened database successfully")
 
 conn.execute('''CREATE TABLE STUDENT
          (REGN_NO INT PRIMARY KEY     NOT NULL,
@@ -11,7 +11,7 @@ conn.execute('''CREATE TABLE STUDENT
          BRANCH            TEXT     NOT NULL,
          EMAIL_ADD 			TEXT NOT NULL,
          CV_LINK        CHAR(50),
-         GPA        REAL);''')   
+         GPA        REAL);''')
 
 conn.execute('''CREATE TABLE ALUMNI
          (USERNAME TEXT PRIMARY KEY     NOT NULL,
